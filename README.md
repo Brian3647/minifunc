@@ -1,6 +1,16 @@
-# minifunc: An extremely simple, small & type-safe functional programming library for TypeScript/JavaScript.
+<div align="center">
 
-Heavily inspired by the rust programming language (https://www.rust-lang.org/).
+# minifunc ⚜️
+
+![License](https://img.shields.io/github/license/Brian3647/minifunc)
+![GitHub issues](https://img.shields.io/github/issues/Brian3647/minifunc)
+![Build status](https://img.shields.io/github/actions/workflow/status/Brian3647/minifunc/bun.yml)
+
+An extremely simple, small & type-safe functional programming library for TypeScript/JavaScript.
+
+</div>
+
+_heavily inspired by the rust programming language: https://rust-lang.org_
 
 ## Installation
 
@@ -14,6 +24,24 @@ $ bun install minifunc
 
 - `Option<T>`: A type that represents an optional value: every `Option<T>` is either `Some(T)` or `None`.
 - `Result<T, E>`: A type that represents either success (`Ok(T)`) or failure (`Err(E)`).
+
+## Usage
+
+The library is fully documented with both JSDoc and typescript declarations. If you're a rust developer, you'll find the library very familiar. Most of the methods are the same as rust's, but using camel case.
+
+Example (declarations):
+
+```typescript
+import { Option, Result, Some, None, Ok, Err } from 'minifunc';
+
+const someValue: Option<number> = Some(5);
+const noneValue: Option<number> = None;
+
+const someResult: Result<number, string> = Ok(5);
+const noneResult: Result<number, string> = Err('error');
+```
+
+`.map(..)` and `.mapErr(..)` are also available (the second being only for `Result`).
 
 ## Contributing
 

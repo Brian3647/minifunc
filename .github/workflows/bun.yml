@@ -1,4 +1,7 @@
-name: my-workflow
+on: [push, pull_request]
+
+name: Bun
+
 jobs:
   my-job:
     name: my-job
