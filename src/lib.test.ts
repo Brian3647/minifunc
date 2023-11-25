@@ -1,5 +1,5 @@
 import { expect, test } from 'bun:test';
-import { Some, None, Option, Result, Ok, Err, PResult } from './lib';
+import { Some, None, Option, Lens, Ok, Err, PResult, pure } from './lib';
 
 const assertEq = (a: unknown, b: unknown) => expect(a).toEqual(b);
 const assert = (a: unknown) => assertEq(a, true);
@@ -52,6 +52,53 @@ test('Result', () => {
 	err = err.mapErr((x) => x + '!');
 
 	assertEq(err.unwrapErr(), 'error!');
+});
+
+test('Lens', () => {
+	const obj = { a: 1, b: 2, c: 3 };
+	const lensA = new Lens<'a', number>('a');
+	const lensD = new Lens('d');
+
+	// Test get method
+	expect(lensA.get(obj)).toBe(1);
+
+	// Test set method
+	let newObj = lensA.set(obj, 2);
+	expect(newObj).toEqual({ a: 2, b: 2, c: 3 });
+
+	// Test maybeGet method when property exists
+	expect(lensA.maybeGet(obj)).toBe(1);
+
+	// Test maybeGet method when property does not exist
+	expect(lensD.maybeGet(obj)).toBeUndefined();
+
+	// Test change method
+	newObj = lensA.change(obj, 3);
+	expect(newObj).toEqual({ a: 3, b: 2, c: 3 });
+
+	// Test map method
+	newObj = lensA.map(obj, (a) => a * 2);
+	expect(newObj).toEqual({ a: 2, b: 2, c: 3 });
+
+	let obj2 = {
+		x: 0,
+	};
+
+	const lensX = new Lens('x');
+	obj2 = lensX.change(obj2, 2);
+
+	expect(lensX.get(obj2)).toBe(2);
+});
+
+test('Pure', () => {
+	const purefn = pure((_: number) => Math.random());
+
+	const first = purefn(0);
+	const second = purefn(1);
+
+	expect(first).not.toBe(second);
+	expect(purefn(0)).toBe(first);
+	expect(purefn(1)).toBe(second);
 });
 
 async function __typeIntellisenseTest(x: number): PResult<number, string> {

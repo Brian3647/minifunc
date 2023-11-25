@@ -1,51 +1,34 @@
+/**
+ * Result type, representing either an Ok value or an error.
+ * @template T Type of the Ok value
+ * @template E Type of the error
+ */
 export class Result<T, E> {
-	/**
-	 * The value of the Result, either the Ok value or an error.
-	 * @note Do not use this directly.
-	 */
 	private readonly value: T | E;
 	private readonly isError: boolean;
 
-	/**
-	 * Not meant to be used directly, use Ok() or Err() instead.
-	 */
 	private constructor(value: T | E, isError: boolean) {
 		this.value = value;
 		this.isError = isError;
 	}
 
-	/**
-	 * An `Ok` value.
-	 */
-	static Ok<T, E>(value: T) {
+	static Ok<T, E>(value: T): Result<T, E> {
 		return new Result<T, E>(value, false);
 	}
 
-	/**
-	 * An `Err` value, an error.
-	 */
-	static Err<T, E>(value: E) {
+	static Err<T, E>(value: E): Result<T, E> {
 		return new Result<T, E>(value, true);
 	}
 
-	/**
-	 * @returns true if the Result is Ok, false otherwise.
-	 */
-	isOk() {
+	isOk(): boolean {
 		return !this.isError;
 	}
 
-	/**
-	 * @returns true if the Result is Err, false otherwise.
-	 */
-	isErr() {
+	isErr(): boolean {
 		return this.isError;
 	}
 
-	/**
-	 * @returns the value if the Result is Ok, throws an Error otherwise.
-	 */
-	unwrap() {
+	unwrap(): T {
 		if (this.isOk()) {
 			return this.value as T;
 		}
@@ -55,10 +38,7 @@ export class Result<T, E> {
 		);
 	}
 
-	/**
-	 * @returns the error if the Result is Err, throws an Error otherwise.
-	 */
-	unwrapErr() {
+	unwrapErr(): E {
 		if (this.isErr()) {
 			return this.value as E;
 		}
@@ -69,47 +49,42 @@ export class Result<T, E> {
 	}
 
 	/**
-	 * @returns the value if the Result is Ok, or a default value.
-	 */ /**
-	 * Maps an Option<T> to Option<U> by applying a function to a contained value, if it's Some.
+	 * Don't use function calls on `defaultValue`. That will call functions even if
+	 * the Result is Ok. Use `unwrapOrElse` instead for that.
 	 */
-
-	unwrapOr(defaultValue: T) {
+	unwrapOr(defaultValue: T): T {
 		return this.isOk() ? (this.value as T) : defaultValue;
 	}
 
-	/**
-	 * @returns the value if the Result is Ok, or a default value called from a function.
-	 */
-	unwrapOrElse(defaultValue: (err: E) => T) {
+	unwrapOrElse(defaultValue: (err: E) => T): T {
 		return this.isOk() ? (this.value as T) : defaultValue(this.value as E);
 	}
 
 	/**
-	 * Maps a `Result<T, _>` to `Result<U, _>` by applying a function to a contained value, if it's Ok.
+	 * Creates a new Result by applying a function to the Ok value.
+	 * Note this will not change the current Result, but return a new one.
 	 */
 	map<U>(fn: (value: T) => U): Result<U, E> {
 		return this.isOk()
 			? Result.Ok(fn(this.value as T))
-			: // This is safe, because we know that the value is an error.
-			  (this as unknown as Result<U, E>);
+			: (this as unknown as Result<U, E>);
 	}
 
 	/**
-	 * Maps a `Result<_, E>` to `Result<_, F>` by applying a function to a contained error, if it's Err.
+	 * Maps the error value to a new Result by applying a function.
+	 * Note this will not change the current Result, but return a new one.
 	 */
 	mapErr<F>(fn: (err: E) => F): Result<T, F> {
 		return this.isErr()
 			? Result.Err(fn(this.value as E))
-			: // This is safe, because we know that the value is Ok.
-			  (this as unknown as Result<T, F>);
+			: (this as unknown as Result<T, F>);
 	}
 }
 
 export const Ok = Result.Ok;
 export const Err = Result.Err;
 
-// Type aliases for convenience.
+// Type aliases
 
 export type PromiseResult<T, E> = Promise<Result<T, E>>;
 export type PResult<T, E> = PromiseResult<T, E>;
