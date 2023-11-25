@@ -1,6 +1,6 @@
 {
 	"name": "minifunc",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "An extremely simple, small & type-safe functional programming library",
 	"author": "Brian3647 <vicmdv@duck.com>",
 	"module": "src/lib.ts",
@@ -17,7 +17,7 @@
 	"scripts": {
 		"lint": "biome lint src",
 		"fmt": "prettier --write .",
-		"build": "tsc",
+		"build": "tsc && npm pack",
 		"prepare": "husky install"
 	},
 	"devDependencies": {
