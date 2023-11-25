@@ -27,21 +27,7 @@ $ bun install minifunc
 
 ## Usage
 
-The library is fully documented with both JSDoc and typescript declarations. If you're a rust developer, you'll find the library very familiar. Most of the methods are the same as rust's, but using camel case.
-
-Example (declarations):
-
-```typescript
-import { Option, Result, Some, None, Ok, Err } from 'minifunc';
-
-const someValue: Option<number> = Some(5);
-const noneValue: Option<number> = None;
-
-const someResult: Result<number, string> = Ok(5);
-const noneResult: Result<number, string> = Err('error');
-```
-
-`.map(..)` and `.mapErr(..)` are also available (the second being only for `Result`), along with other utility methods like `.unwrap(..)`, `.unwrapOr(..)` and `.unwrapOrElse(..)`.
+The documentation is available [here](https://brian3647.github.io/minifunc/).
 
 ## Contributing
 
