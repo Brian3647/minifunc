@@ -3,3 +3,4 @@ export { Result, Ok, Err, type PromiseResult, type PResult } from './result';
 export { Lens } from './lens';
 export { pure } from './pure';
 export { Monad } from './monad';
+export { times, range, repeat, zip } from './util';

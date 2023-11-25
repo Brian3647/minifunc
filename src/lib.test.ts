@@ -1,5 +1,19 @@
 import { expect, test } from 'bun:test';
-import { Some, None, Option, Lens, Ok, Err, PResult, pure } from './lib';
+
+import {
+	Some,
+	None,
+	Option,
+	Lens,
+	Ok,
+	Err,
+	PResult,
+	pure,
+	times,
+	range,
+	repeat,
+	zip,
+} from './lib';
 
 const assertEq = (a: unknown, b: unknown) => expect(a).toEqual(b);
 const assert = (a: unknown) => assertEq(a, true);
@@ -99,6 +113,27 @@ test('Pure', () => {
 	expect(first).not.toBe(second);
 	expect(purefn(0)).toBe(first);
 	expect(purefn(1)).toBe(second);
+});
+
+test('Utility functions', () => {
+	const timesResult = times(5, (i) => i * 2);
+	expect(timesResult).toEqual([0, 2, 4, 6, 8]);
+
+	const rangeResult = range(1, 5);
+	expect(rangeResult).toEqual([1, 2, 3, 4]);
+
+	const rangeWithStepResult = range(1, 10, 2);
+	expect(rangeWithStepResult).toEqual([1, 3, 5, 7, 9]);
+
+	const repeatResult = repeat(3, 'a');
+	expect(repeatResult).toEqual(['a', 'a', 'a']);
+
+	const zipResult = zip([1, 2, 3], ['a', 'b', 'c']);
+	expect(zipResult).toEqual([
+		[1, 'a'],
+		[2, 'b'],
+		[3, 'c'],
+	]);
 });
 
 async function __typeIntellisenseTest(x: number): PResult<number, string> {

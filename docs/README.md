@@ -20,3 +20,4 @@ $ bun/npm/yarn/.. install minifunc
 - [Lens](./lens.md)
 - [pure](./pure.md)
 - [Monad](./monad.md)
+- [Utility functions](./util.md)
