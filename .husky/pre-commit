@@ -1,0 +1,39 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+set -e # exit on error
+
+err() {
+    echo "$1" >&2
+}
+
+set_runner() {
+    HAS_BUN=$(command -v bun)
+    HAS_NPM=$(command -v npm)
+    RUNNER=bun
+    RUNNERX="bun x"
+
+    if [ -z "$HAS_BUN" ]; then
+        err "bun is not installed, defaulting to npm"
+        err "warning: \`bun test\` will not run, and github actions may fail."
+        RUNNER=npm
+        RUNNERX=npx
+    elif [ -z "$HAS_NPM"]; then
+        err "Neither npm nor bun is installed, please install one of them"
+        return 1
+    fi
+}
+
+set_runner
+
+$RUNNER install
+
+RUNNER="$RUNNER run"
+
+$RUNNER fmt
+$RUNNER lint
+$RUNNER build
+
+if [ "$RUNNER" = "bun run" ]; then
+    bun test
+fi
