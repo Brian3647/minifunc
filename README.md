@@ -6,7 +6,7 @@
 ![GitHub issues](https://img.shields.io/github/issues/Brian3647/minifunc)
 ![Build status](https://img.shields.io/github/actions/workflow/status/Brian3647/minifunc/bun.yml)
 
-An extremely simple, small & type-safe functional programming library for TypeScript/JavaScript.
+An extremely simple, small & type-safe functional programming library for TypeScript/JavaScript. - [docs](https://brian3647.github.io/minifunc/)
 
 </div>
 
