@@ -1,7 +1,7 @@
 # minifunc ⚜️ - documentation
 
-- github repo: https://github.com/Brian3647/minifunc
-- npm package: https://www.npmjs.com/package/minifunc
+- [github repo](https://github.com/Brian3647/minifunc)
+- [npm package](https://www.npmjs.com/package/minifunc)
 
 ## Installation
 
