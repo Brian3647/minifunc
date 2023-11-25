@@ -41,7 +41,7 @@ const someResult: Result<number, string> = Ok(5);
 const noneResult: Result<number, string> = Err('error');
 ```
 
-`.map(..)` and `.mapErr(..)` are also available (the second being only for `Result`).
+`.map(..)` and `.mapErr(..)` are also available (the second being only for `Result`), along with other utility methods like `.unwrap(..)`, `.unwrapOr(..)` and `.unwrapOrElse(..)`.
 
 ## Contributing
 
