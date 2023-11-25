@@ -20,11 +20,6 @@ You can use your favorite package manager to install minifunc via npmjs.org pack
 $ bun install minifunc
 ```
 
-## Features
-
-- `Option<T>`: A type that represents an optional value: every `Option<T>` is either `Some(T)` or `None`.
-- `Result<T, E>`: A type that represents either success (`Ok(T)`) or failure (`Err(E)`).
-
 ## Usage
 
 The documentation is available [here](https://brian3647.github.io/minifunc/).
